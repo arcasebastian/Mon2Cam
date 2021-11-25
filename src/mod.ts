@@ -51,8 +51,9 @@ if (options.wayland) {
 	startX11(options, logger);
 }
 
-for await (const _ of Deno.addSignalListener("SIGINT")) {
+Deno.addSignalListener("SIGINT", function () {
 	await disposeAudio(logger);
 	logger.write();
 	Deno.exit();
-}
+    }
+); 
